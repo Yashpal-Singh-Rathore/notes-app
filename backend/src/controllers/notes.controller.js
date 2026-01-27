@@ -1,4 +1,4 @@
-import pool from "../../db.js";
+import { pool } from "../../db.js";
 import AppError from "../utils/AppError.js";
 
 // Create Note
@@ -21,7 +21,7 @@ export const createNote = async (req, res) => {
         VALUES ($1, $2, $3)
         RETURNING id, title, content, created_at, updated_at
         `,
-    [userId, title ?? null, content]
+    [userId, title ?? null, content],
   );
 
   // 5. Send response
@@ -43,7 +43,7 @@ export const getNotes = async (req, res) => {
             WHERE user_id = $1
             ORDER BY created_at DESC
             `,
-    [userId]
+    [userId],
   );
 
   // 3. Send notes
@@ -72,7 +72,7 @@ export const deleteNote = async (req, res) => {
             WHERE id = $1 AND user_id = $2
             RETURNING id
             `,
-    [noteId, userId]
+    [noteId, userId],
   );
 
   // 5. No rows = either not found or not owned
@@ -113,7 +113,7 @@ export const updateNote = async (req, res) => {
         WHERE id = $3 AND user_id = $4
         RETURNING id, title, content, created_at, updated_at
         `,
-    [title ?? null, content ?? null, noteId, userId]
+    [title ?? null, content ?? null, noteId, userId],
   );
 
   // 6. Handle not found / not owned

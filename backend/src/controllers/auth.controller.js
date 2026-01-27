@@ -2,7 +2,7 @@ import { ENV } from "../../config/env.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import pool from "../../db.js";
+import { pool } from "../../db.js";
 
 import AppError from "../utils/AppError.js";
 
