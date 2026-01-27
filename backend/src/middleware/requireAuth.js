@@ -1,7 +1,7 @@
 import { ENV } from "../../config/env.js";
 
 import jwt from "jsonwebtoken";
-import pool from "../../db.js";
+import { pool } from "../../db.js";
 import AppError from "../utils/AppError.js";
 
 const requireAuth = async (req, res, next) => {
