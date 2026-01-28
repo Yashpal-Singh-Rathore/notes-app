@@ -1,5 +1,9 @@
 # Notes App – Full Stack Project
 
+## Live Demo
+
+Frontend: https://notes-frontend-alpha-sable.vercel.app
+
 ````md
 A full-stack notes application with authentication and CRUD functionality.
 
