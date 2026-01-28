@@ -141,6 +141,13 @@ function App() {
         return;
       }
 
+      if (editingNoteId === noteId) {
+        setTitle("");
+        setContent("");
+        setNoteError("");
+        setEditingNoteId(null);
+      }
+
       // Re-fetch notes after deletion
       fetchNotes();
     } catch (err) {
