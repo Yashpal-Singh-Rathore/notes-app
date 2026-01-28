@@ -108,6 +108,7 @@ function App() {
       setEditingNoteId(null);
       setTitle("");
       setContent("");
+      setNoteError("");
 
       // Refresh notes
       fetchNotes();
@@ -159,6 +160,10 @@ function App() {
       setSignupMessage(false);
       setIsAuthenticated(false);
       setNotes([]);
+      setTitle("");
+      setContent("");
+      setNoteError("");
+      setEditingNoteId(null);
       setEmail("");
       setPassword("");
     }
@@ -187,6 +192,15 @@ function App() {
 
     checkAuth();
   }, []);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setEditingNoteId(null);
+      setTitle("");
+      setContent("");
+      setNoteError("");
+    }
+  }, [isAuthenticated]);
 
   if (checkingAuth) {
     return <p>Checking authentication...</p>;
