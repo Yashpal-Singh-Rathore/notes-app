@@ -6,6 +6,7 @@ function NoteForm({
   editingNoteId,
   onTitleChange,
   onContentChange,
+  handleKeyDown,
   onSubmit,
 }) {
   return (
@@ -23,6 +24,7 @@ function NoteForm({
       <textarea
         placeholder="Write your note..."
         value={content}
+        onKeyDown={handleKeyDown}
         onChange={(e) => onContentChange(e.target.value)}
       />
 

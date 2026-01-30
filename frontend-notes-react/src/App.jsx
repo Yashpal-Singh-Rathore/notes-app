@@ -25,7 +25,7 @@ function App() {
 
   const [notes, setNotes] = useState([]);
 
-  const isDisabled = !email || password.length < 6;
+  const isDisabled = !email || password.length < 8;
 
   const API_BASE = import.meta.env.VITE_API_BASE;
 
@@ -74,7 +74,7 @@ function App() {
   async function handleCreateOrUpdateNote(e) {
     e.preventDefault();
 
-    if (!content) {
+    if (!content.trim()) {
       setNoteError("Note content is required");
       return;
     }
@@ -176,6 +176,18 @@ function App() {
     }
   }
 
+  function handleKeyDown(e) {
+    const isMac = navigator.platform.toUpperCase().includes("MAC");
+
+    if (
+      (isMac && e.metaKey && e.key === "Enter") ||
+      (!isMac && e.ctrlKey && e.key === "Enter")
+    ) {
+      e.preventDefault();
+      handleCreateOrUpdateNote(e);
+    }
+  }
+
   // Persistent login on refresh the page
   useEffect(() => {
     async function checkAuth() {
@@ -210,7 +222,7 @@ function App() {
   }, [isAuthenticated]);
 
   if (checkingAuth) {
-    return <p>Checking authentication...</p>;
+    return <p>Loading...</p>;
   }
 
   if (!isAuthenticated) {
@@ -247,6 +259,7 @@ function App() {
           noteError={noteError}
           editingNoteId={editingNoteId}
           onTitleChange={setTitle}
+          handleKeyDown={handleKeyDown}
           onContentChange={setContent}
           onSubmit={handleCreateOrUpdateNote}
         />

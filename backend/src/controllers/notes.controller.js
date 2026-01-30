@@ -7,8 +7,8 @@ export const createNote = async (req, res) => {
   const { title, content } = req.body;
 
   // 2. Validate input
-  if (!content) {
-    throw new AppError("Content is required", 400);
+  if (!content || !content.trim()) {
+    throw new AppError("Note content cannot be empty", 400);
   }
 
   // 3. Get user ID from auth middleware

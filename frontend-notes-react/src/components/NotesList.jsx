@@ -8,7 +8,7 @@ function NotesList({ notes, onEdit, onDelete }) {
       {notes.map((note) => (
         <li className="note-card" key={note.id}>
           <div className="note-body">
-            <h3 className="note-title">{note.title || "Untitled"}</h3>
+            <h3 className="note-title">{note.title || ""}</h3>
             <p className="note-content">{note.content}</p>
           </div>
 
