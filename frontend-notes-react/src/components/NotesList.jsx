@@ -1,6 +1,6 @@
 function NotesList({ notes, onEdit, onDelete }) {
   if (notes.length === 0) {
-    return <p className="empty">No notes yet.</p>;
+    return <p className="empty">No notes yet...</p>;
   }
 
   return (
