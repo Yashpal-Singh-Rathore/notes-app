@@ -6,6 +6,13 @@ import { pool } from "../../db.js";
 
 import AppError from "../utils/AppError.js";
 
+const isProduction = ENV.NODE_ENV === "production";
+const cookieOptions = {
+  httpOnly: true,
+  sameSite: isProduction ? "none" : "lax",
+  secure: isProduction,
+};
+
 // Signup
 export const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -81,9 +88,7 @@ export const login = async (req, res) => {
 
   // Set JWT in HTTP-only cookie
   res.cookie("token", token, {
-    httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    ...cookieOptions,
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
@@ -95,12 +100,7 @@ export const login = async (req, res) => {
 
 // logout
 export const logout = (req, res) => {
-  res.cookie("token", "", {
-    httpOnly: true,
-    sameSite: "none",
-    secure: true,
-    expires: new Date(0),
-  });
+  res.clearCookie("token", cookieOptions);
 
   res.json({ message: "Logged out successfully" });
 };

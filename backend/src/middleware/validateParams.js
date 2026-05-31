@@ -6,7 +6,10 @@ const validateParams = (schema) => {
       schema.parse(req.params);
       next();
     } catch (err) {
-      const message = err.errors.map((e) => e.message).join(", ");
+      const issues = err.issues ?? err.errors ?? [];
+      const message =
+        issues.map((issue) => issue.message).join(", ") ||
+        "Invalid request parameters";
       next(new AppError(message, 400));
     }
   };

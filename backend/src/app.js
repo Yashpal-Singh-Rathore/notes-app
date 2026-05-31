@@ -5,16 +5,23 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import noteRoutes from "./routes/notes.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { ENV } from "../config/env.js";
 
 const app = express();
+
+const allowedOrigins = new Set(ENV.CORS_ORIGINS);
 
 // Middleware
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "https://notes-frontend-alpha-sable.vercel.app",
-    ],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.has(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error(`Not allowed by CORS: ${origin}`));
+    },
     credentials: true,
   }),
 );

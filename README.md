@@ -57,16 +57,15 @@ cd notes-react -> npm install -> npm run dev
 
 ```env
 PORT=4000
+NODE_ENV=production
 JWT_SECRET=your_secret
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=notes_app
-DB_USER=notes_user
-DB_PASSWORD=notes_password
+DATABASE_URL=your_supabase_postgres_url
+CORS_ORIGINS=http://localhost:5173,https://your-vercel-url.vercel.app
 ```
 
 ### Frontend (.env)
 
 ```env
 VITE_API_BASE=http://localhost:4000
+VITE_API_BASE=https://your-render-backend.onrender.com
 ```

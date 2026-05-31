@@ -3,10 +3,15 @@ dotenv.config();
 
 export const ENV = {
   PORT: process.env.PORT,
+  NODE_ENV: process.env.NODE_ENV,
   JWT_SECRET: process.env.JWT_SECRET,
-  DB_HOST: process.env.DB_HOST,
-  DB_PORT: process.env.DB_PORT,
-  DB_NAME: process.env.DB_NAME,
-  DB_USER: process.env.DB_USER,
-  DB_PASSWORD: process.env.DB_PASSWORD,
+  DATABASE_URL: process.env.DATABASE_URL,
+  CORS_ORIGINS: (
+    process.env.CORS_ORIGINS ??
+    process.env.CORS_ORIGIN ??
+    "http://localhost:5173"
+  )
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean),
 };
